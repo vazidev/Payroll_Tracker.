@@ -1,29 +1,23 @@
-# Backend Service
+# Backend Services - Microservice Architecture
 
-This backend folder is intended to house the API and business logic for the enterprise payroll/time platform.
+This folder was originally intended for a monolithic backend, but has been restructured into microservices under `services/`.
 
-## Suggested Architecture
-- Language: TypeScript
-- Runtime: Node.js
-- Framework: Express, NestJS, or Fastify
-- Database: PostgreSQL or MySQL
-- ORM: Prisma, TypeORM, or Sequelize
-- Auth: JWT, OAuth, SSO, SCIM
+## Updated Structure
+The backend logic is now distributed across independent microservices:
+- `auth-service/` - Handles authentication, authorization, MFA, and user management.
+- `hr-service/` - Manages onboarding/offboarding and employee lifecycle.
+- `payroll-service/` - Processes payroll calculations, pay periods, and compensation rules.
+- `timecard-service/` - Manages time entry, editing, and attendance tracking.
+- `client-service/` - Handles multi-tenant client management and subscriptions.
+- `reporting-service/` - Provides reporting, analytics, and data exports.
 
-## Directory Layout
-- `src/api/` - REST or GraphQL API routes and controllers.
-- `src/auth/` - Authentication, authorization, MFA, user management.
-- `src/hr/` - Onboarding/offboarding workflows and employee lifecycle logic.
-- `src/payroll/` - Payroll calculation rules, pay periods, overtime, holiday pay.
-- `src/timecard/` - Time entry, editing, validation, attendance tracking.
-- `src/clients/` - Multi-tenant and subscription management.
-- `src/shared/` - Shared utilities, middleware, constants, and types.
-- `db/migrations/` - Database schema migrations.
-- `db/seeds/` - Seed data for development and testing.
-- `tests/` - Backend unit and integration tests.
+## Migration Notes
+- Move any existing code from `backend/src/` to the appropriate service under `services/`.
+- Use the `api-gateway/` for inter-service communication.
+- Shared utilities should go into `shared/`.
 
 ## Next Steps
-- Initialize a Node.js package and install required dependencies.
-- Create a server entrypoint and a database migration setup.
-- Add endpoint design for timecards, payroll, users, and client management.
-- Add backend unit and integration tests, and link to `app/docs/testing/README.md` for QA guidance.
+- Initialize each service with its own package.json and dependencies.
+- Implement service-specific APIs and database schemas.
+- Set up inter-service communication via REST, gRPC, or message queues.
+- Add service-specific unit and integration tests.

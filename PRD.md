@@ -7,7 +7,7 @@ Enterprise Timecard & Payroll Platform
 This PRD defines the scope, user needs, functional requirements, and success criteria for an enterprise-grade employee time tracking, payroll calculation, and multi-client subscription platform.
 
 ## Vision
-Build a secure, scalable, and highly marketable payroll/time management platform that supports enterprise clients, multi-tenant configurations, HR workflows, and seamless integration with payroll processors like QuickBooks.
+Build a secure, scalable, and highly marketable payroll/time management platform that supports enterprise clients, multi-tenant configurations, HR workflows, and seamless integration with payroll processors like QuickBooks. The platform is built on a microservice architecture for modularity and scalability.
 
 ## Objectives
 - Provide an employee-centric timecard system that captures work hours, locations, customer sites, and pay rates.
@@ -15,9 +15,22 @@ Build a secure, scalable, and highly marketable payroll/time management platform
 - Support enterprise payroll calculations including overtime, double time, holiday pay, and retroactive pay adjustments.
 - Deliver secure onboarding, multi-factor authentication, and client-specific role-based access.
 - Offer a compelling competitive advantage with multi-client subscription management, premium reporting, and integration readiness.
+- Utilize microservices for independent service development, deployment, and scaling.
 
-## User Personas
-- **Admin**: Configures pay periods, manages system and client settings, oversees payroll, and manages integrations.
+## Architecture
+The application follows a microservice architecture with the following services:
+- **Auth Service**: Handles authentication, authorization, and user management.
+- **HR Service**: Manages employee onboarding, offboarding, and lifecycle.
+- **Payroll Service**: Processes payroll calculations and pay rules.
+- **Timecard Service**: Manages time entries and attendance.
+- **Client Service**: Handles multi-tenant client management.
+- **Reporting Service**: Provides analytics and exports.
+- **API Gateway**: Routes requests and orchestrates services.
+- **Frontend**: Web UI for user interactions.
+- **Mobile**: Mobile app for field operations.
+- **Shared**: Common libraries and utilities.
+
+Services communicate via APIs, enabling independent scaling and deployment.
 - **HR**: Handles employee lifecycle events, manages pay rates, approves changes, and maintains compliance documentation.
 - **Employee**: Enters, edits, and submits timecards; views hours, customer site, location, and pay rate details.
 - **Client Manager**: Reviews and approves timecards for a client organization, accesses client-specific payroll reports, and manages client employee workflows.

@@ -1,7 +1,14 @@
 # Enterprise Timecard & Payroll Application Design
 
 ## Purpose
-Build a scalable employee timecard and payroll management platform for enterprise and multi-client use. The system should support web-based deployment (AWS/Client-Server), downloadable/mobile delivery, and offer market-leading security, UX, reporting, and payroll automation.
+Build a scalable employee timecard and payroll management platform for enterprise and multi-client use. The system should support web-based deployment (AWS/Client-Server), downloadable/mobile delivery, and offer market-leading security, UX, reporting, and payroll automation. The architecture follows a microservice pattern for scalability and maintainability.
+
+## Architecture Overview
+- **Microservice Architecture**: The backend is decomposed into independent services (auth, hr, payroll, timecard, client, reporting) communicating via APIs through an API gateway. This enables independent scaling, deployment, and technology choices per service.
+- **Frontend**: Web UI for role-based dashboards.
+- **Mobile**: App for field operations with offline sync.
+- **Shared**: Common libraries and utilities.
+- **Infra**: Deployment and infrastructure automation.
 
 ## User Roles
 - **Admin**: Full system access, configure pay periods, manage multi-tenant clients, approve payroll, deploy reports, and integrate with external payroll systems.
