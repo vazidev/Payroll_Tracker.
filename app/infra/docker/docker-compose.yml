@@ -1,0 +1,114 @@
+version: '3.8'
+
+services:
+  # Database
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: payroll_db
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  # Auth Service
+  auth-service:
+    build:
+      context: ../../
+      dockerfile: app/infra/docker/Dockerfile.auth
+    ports:
+      - "3001:3001"
+    environment:
+      - DATABASE_URL=postgresql://user:password@postgres:5432/payroll_db
+    depends_on:
+      - postgres
+
+  # HR Service
+  hr-service:
+    build:
+      context: ../../
+      dockerfile: app/infra/docker/Dockerfile.hr
+    ports:
+      - "3002:3002"
+    environment:
+      - DATABASE_URL=postgresql://user:password@postgres:5432/payroll_db
+    depends_on:
+      - postgres
+
+  # Payroll Service
+  payroll-service:
+    build:
+      context: ../../
+      dockerfile: app/infra/docker/Dockerfile.payroll
+    ports:
+      - "3003:3003"
+    environment:
+      - DATABASE_URL=postgresql://user:password@postgres:5432/payroll_db
+    depends_on:
+      - postgres
+
+  # Timecard Service
+  timecard-service:
+    build:
+      context: ../../
+      dockerfile: app/infra/docker/Dockerfile.timecard
+    ports:
+      - "3004:3004"
+    environment:
+      - DATABASE_URL=postgresql://user:password@postgres:5432/payroll_db
+    depends_on:
+      - postgres
+
+  # Client Service
+  client-service:
+    build:
+      context: ../../
+      dockerfile: app/infra/docker/Dockerfile.client
+    ports:
+      - "3005:3005"
+    environment:
+      - DATABASE_URL=postgresql://user:password@postgres:5432/payroll_db
+    depends_on:
+      - postgres
+
+  # Reporting Service
+  reporting-service:
+    build:
+      context: ../../
+      dockerfile: app/infra/docker/Dockerfile.reporting
+    ports:
+      - "3006:3006"
+    environment:
+      - DATABASE_URL=postgresql://user:password@postgres:5432/payroll_db
+    depends_on:
+      - postgres
+
+  # API Gateway
+  api-gateway:
+    build:
+      context: ../../
+      dockerfile: app/infra/docker/Dockerfile.gateway
+    ports:
+      - "3000:3000"
+    depends_on:
+      - auth-service
+      - hr-service
+      - payroll-service
+      - timecard-service
+      - client-service
+      - reporting-service
+
+  # Frontend
+  frontend:
+    build:
+      context: ../../
+      dockerfile: app/infra/docker/Dockerfile.frontend
+    ports:
+      - "8080:80"
+    depends_on:
+      - api-gateway
+
+volumes:
+  postgres_data:

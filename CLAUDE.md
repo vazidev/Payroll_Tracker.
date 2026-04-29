@@ -5,6 +5,7 @@ Build a scalable employee timecard and payroll management platform for enterpris
 
 ## Architecture Overview
 - **Microservice Architecture**: The backend is decomposed into independent services (auth, hr, payroll, timecard, client, reporting) communicating via APIs through an API gateway. This enables independent scaling, deployment, and technology choices per service.
+- **Containerization**: Each service is designed to run as a Docker container, with docker-compose for local development and orchestration. Dockerfiles and compose file are fully configured.
 - **Frontend**: Web UI for role-based dashboards.
 - **Mobile**: App for field operations with offline sync.
 - **Shared**: Common libraries and utilities.

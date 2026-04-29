@@ -1,0 +1,19 @@
+# Dockerfile for Auth Service
+FROM node:18-alpine
+
+WORKDIR /app
+
+# Copy package files
+COPY services/auth-service/package*.json ./
+
+# Install dependencies
+RUN npm install
+
+# Copy source code
+COPY services/auth-service/src ./src
+
+# Expose port
+EXPOSE 3001
+
+# Start the service
+CMD ["npm", "start"]

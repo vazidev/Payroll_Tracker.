@@ -30,7 +30,7 @@ The application follows a microservice architecture with the following services:
 - **Mobile**: Mobile app for field operations.
 - **Shared**: Common libraries and utilities.
 
-Services communicate via APIs, enabling independent scaling and deployment.
+Services communicate via APIs, enabling independent scaling and deployment. Each service is containerized with Docker for consistent environments, with full Docker setup including Dockerfiles and docker-compose.yml.
 - **HR**: Handles employee lifecycle events, manages pay rates, approves changes, and maintains compliance documentation.
 - **Employee**: Enters, edits, and submits timecards; views hours, customer site, location, and pay rate details.
 - **Client Manager**: Reviews and approves timecards for a client organization, accesses client-specific payroll reports, and manages client employee workflows.
